@@ -1,8 +1,33 @@
 # RentaCar App - README
 Este proyecto es una aplicación web desarrollada en React y nodeJs que permite el registro y la visualización de vehículos para una empresa de Renta Car.
 
-## Configuración del Proyecto
+## Configuración del Proyecto (Problema 2.1)
+ Requisitos Previos
+ Asegúrate de tener instalados los siguientes programas antes de comenzar:
 
+> Node.js y npm (se recomienda la última versión estable)
+
+Clona este repositorio en tu máquina local utilizando Git:
+```
+git clone <URL del repositorio>
+```
+> Instalación de Dependencias
+En la raíz del proyecto, instala las dependencias necesarias:
+
+Configuración del Servidor de Desarrollo
+
+problema2.1
+```
+cd problema2.1/backend
+npm install
+```
+
+Para ejecutar el servidor :
+
+```
+npm run dev
+El servidor  estará disponible en http://localhost:1234. 
+```
 ### Base de datos
 
   este proyecto fue desarrollado con una base de datos Mysql local, por lo que para testear la aplicacion deben configurar una base de datos local.
@@ -28,32 +53,19 @@ Este proyecto es una aplicación web desarrollada en React y nodeJs que permite 
         price INT NOT NULL DEFAULT(0)
     );
   ```
-Requisitos Previos
-Asegúrate de tener instalados los siguientes programas antes de comenzar:
-
-> Node.js y npm (se recomienda la última versión estable)
-> Clonar el Repositorio
-
-Clona este repositorio en tu máquina local utilizando Git:
+Es importante que la configuracion de la base de datos creada y la definida para el proyecto sean las mismas para que el servidor se pueda conectar sin problemas. Dicha configuración se encuentra en ```/backend/config/db.js```
+        
+la configuración por defecto es:
 ```
-git clone <URL del repositorio>
-```
-> Instalación de Dependencias
-En la raíz del proyecto, instala las dependencias necesarias:
+    const DATABASE_CONFIG = {
 
-Configuración del Servidor de Desarrollo
+          host: 'localhost',
+          port: 3306, // Puerto definido al crear la base de datos, por defect 3306
+          user: 'root', // usuario al crear la base de datos
+          password: '',
+          database: 'rentacarDb' // nombre de la base de datos creada
 
-problema2.1
-```
-cd problema2.1/backend
-npm install
-```
-
-Para ejecutar el servidor de desarrollo :
-
-```
-npm run dev
-El servidor  estará disponible en http://localhost:1234. 
+    }
 ```
 
 > endpoints disponibles
@@ -69,11 +81,14 @@ El servidor  estará disponible en http://localhost:1234.
 
 ```
 
-NOTA: Seguir los mismos pasos para el proyecto (carpeta) de frontend (cd problema2.1/frontend ...)
+NOTA: Seguir los mismos pasos para el proyecto (carpeta) de frontend (cd problema2.1/frontend/rentacarFront...)
 
-Uso de la Aplicación
+> Uso de la Aplicación
 Registro de Vehículos
 Para registrar un nuevo vehículo, completa el formulario con la información requerida y haz clic en "Agregar Vehículo" para registrar el vehículo.
 
-Visualización de Vehículos
+> Visualización de Vehículos
 En la página principal, encontrarás un nabvar que contendra el link para redirigir al formulario y a la lista de vehiculos, la cual tendrá una tabla que muestra los últimos 10 vehículos registrados.
+
+
+## Configuración del Proyecto (Problema 2.2)
