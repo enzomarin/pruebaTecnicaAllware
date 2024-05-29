@@ -2,6 +2,7 @@ import styled from "styled-components";
 import VehicleForm from "../components/VehicleForm";
 
 
+// página del formulario de vehículo
 export default function VehicleFormPage (){
   const Div = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ export default function VehicleFormPage (){
       <h2>
         Agrega un nuevo Vehículo
       </h2>
-      <VehicleForm onVehicleAdded={()=>{}}/>
+      <VehicleForm onVehicleAdded={()=>{}}/> {/* Renderización del componente del formulario de ingreso */}
     </Div>
   )
 }

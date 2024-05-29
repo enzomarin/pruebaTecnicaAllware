@@ -1,5 +1,6 @@
 import VehicleList from "../components/VehicleList";
 
+// Página que lista los vehículos registrados
 export default function VehiclePage (){
 
   return(
@@ -8,7 +9,7 @@ export default function VehiclePage (){
 
         Pagina con los ultimos 10 vehiculos registrados
       </h2>
-      <VehicleList/>
+      <VehicleList/> {/* Renderizamos la tabla*/}
     </div>
   )
 }

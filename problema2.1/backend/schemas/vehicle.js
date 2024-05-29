@@ -1,5 +1,6 @@
 import z from 'zod'
 
+// Esquema de validación para un vehículo (definición y restricciones para sus campos)
 const vehicleSchema = z.object({
   rut: z.string().min(1, 'RUT del vendedor es requerido'),
   name: z.string().min(1, 'Nombre y apellido son requeridos'),
@@ -9,10 +10,12 @@ const vehicleSchema = z.object({
   price: z.number().positive('El precio debe ser un número positivo')
 })
 
+// Función que valida un objeto completo según el esquema vehicleSchema
 export function validateVehicle (object) {
   return vehicleSchema.safeParse(object)
 }
 
+// funcion que valida parcialmente un objeto (no se utilizó)
 export function validatePartialVehicle (input) {
   return vehicleSchema.partial().safeParse(input)
 }

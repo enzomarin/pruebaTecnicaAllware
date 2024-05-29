@@ -10,9 +10,9 @@ function App() {
     <>
     <NavBar/>
      <Routes>
-        <Route path='/' element={<VehicleFormPage/>}/>
-        <Route path='/vehicles' element={<VehiclePage/>}/>
-        <Route path='*' element={<NotFaundPage/>}/>
+        <Route path='/' element={<VehicleFormPage/>}/> {/* Ruta para el formulario de vehículos */}
+        <Route path='/vehicles' element={<VehiclePage/>}/> {/* Ruta para mostrar la lista de vehículos */}
+        <Route path='*' element={<NotFaundPage/>}/> {/* Ruta para manejar URLs no encontradas */}
      </Routes>
     </>
   )

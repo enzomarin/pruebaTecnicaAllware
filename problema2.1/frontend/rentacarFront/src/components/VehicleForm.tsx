@@ -83,7 +83,9 @@ interface FormData {
   price: string;
 }
 
+// Opciones de marcas y modelos de vehículos
 const brands = ['Toyota', 'Ford', 'Chevrolet', 'Honda', 'Nissan'];
+// Objeto que contiene un arreglo de modelos para cada marca
 const modelsByBrand = {
   Toyota: ['Corolla', 'Camry'],
   Ford: ['Fiesta', 'Mustang'],
@@ -92,6 +94,7 @@ const modelsByBrand = {
   Nissan: ['Sentra', 'Altima'],
 };
 
+// Estado inicial del formulario
 const initialState = {
   rut: '',
   name: '',
@@ -101,30 +104,34 @@ const initialState = {
   price: '0'
 }
 const VehicleForm: React.FC<VehicleFormProps> = ({ onVehicleAdded }) => {
-  const [formData, setFormData] = useState<FormData>(initialState);
-  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
+  const [formData, setFormData] = useState<FormData>(initialState); // Estado para manejar los datos del formulario
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({}); // estado para manejar los errores de validación
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false) // Estado que limita ciertas interacciones (boton agregar vehículo) mientras se esta realizando un submit
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // Recuperamos el nombre y valor de cada elemento del formulario (inputs, select)
 
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      // Si el campo modificado es 'brand', actualiza el modelo con el primer modelo correspondiente a la nueva marca
+
       ...(name === 'brand' && { model: modelsByBrand[value as keyof typeof modelsByBrand][0] }),
     }));
   };
 
+  // Maneja el envío del formulario
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // Previene el comportamiento por defecto del formulario
     try {
+      // Valida los datos del formulario usando el esquema de validación de zod
       const validateFormtData = VehicleSchema.parse({
         ...formData,
         price: parseInt(formData.price)
       })
       console.log("validateFormtData",validateFormtData)
-      setIsSubmitting(true)
+      setIsSubmitting(true)// Indica que el envío ha empezado
       const vehicleData = {
         ...validateFormtData,
         price: validateFormtData.price
@@ -132,20 +139,19 @@ const VehicleForm: React.FC<VehicleFormProps> = ({ onVehicleAdded }) => {
       await addVehicle(vehicleData);
 
       setFormData(initialState) // una vez agregado el nuevo vehiculo limpiamos el formulario
-      setIsSubmitting(false)
+      setIsSubmitting(false) // Indica que el envío ha terminado
       setFormErrors({});
-      setFormErrors({})
       onVehicleAdded();
     } catch (error) {
       setIsSubmitting(false)
       if (error instanceof z.ZodError) {
         const fieldErrors: { [key: string]: string } = {};
-        error.errors.forEach((err) => {
+        error.errors.forEach((err) => { // recorremos cada error de zod (validación de inputs)
           if (err.path) {
             fieldErrors[err.path[0]] = err.message;
           }
         });
-        setFormErrors(fieldErrors);
+        setFormErrors(fieldErrors); // Actualiza los errores del formulario
       }else{
 
         console.error('Error adding vehicle:', error);

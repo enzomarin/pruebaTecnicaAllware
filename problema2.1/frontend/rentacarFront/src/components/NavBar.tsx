@@ -46,6 +46,8 @@ const Li = styled.li`
   color: white;
 
   `
+
+  // Componente que se encarga de renderizar la bara de navegación
 export function NavBar(){
   return(
     <Div>
