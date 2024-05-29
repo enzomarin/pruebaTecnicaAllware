@@ -1,0 +1,1 @@
+Crear base de datos (se utilizo DBngin para la creación) y MYSQLworkbench para la gestión
