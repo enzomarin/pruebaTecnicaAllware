@@ -127,13 +127,13 @@ Maven: Herramienta de gestión de proyectos y dependencias para Java.
 
 ````
   git clone git@github.com:enzomarin/pruebaTecnicaAllware.git
-  cd pruebaTecnicaAllware
-  
+
 ````
+
 #### Importar el Proyecto en IntelliJ:
 
 - Abre IntelliJ IDEA.
-- Selecciona File -> Open y navega hasta el directorio del proyecto clonado.
+- Selecciona File -> Open y navega hasta el directorio del proyecto clonado (```pruebaTecnicaAllware/problema2.2/WebService ```).
 
 
 ### Ejecutar Servidor desde IntelliJ:
