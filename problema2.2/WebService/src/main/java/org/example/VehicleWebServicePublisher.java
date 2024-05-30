@@ -16,7 +16,7 @@ public class VehicleWebServicePublisher {
     public static void main(String[] args) throws IOException {
         // Crear un servidor HTTP
         HttpServer server = HttpServer.create(new InetSocketAddress(1234), 0);
-        // Publicar el punto final SOAP
+        // Publicar el endpoint SOAP
         Endpoint.publish("http://localhost:1234/VehicleWebServiceImpl", new VehicleWebServiceImpl());
 
         // Configurar manejador HTTP para la ruta CORS
@@ -39,7 +39,6 @@ public class VehicleWebServicePublisher {
                 }
 
                 // Manejar otras solicitudes
-                // Aquí debes procesar las solicitudes SOAP como lo hacías antes
                 // Manejar solicitudes POST (SOAP)
                 if (exchange.getRequestMethod().equalsIgnoreCase("POST")) {
                     // Leer el cuerpo de la solicitud
@@ -51,7 +50,7 @@ public class VehicleWebServicePublisher {
                         soapRequest.append(line).append("\n");
                     }
 
-                    // Procesar la solicitud SOAP (puedes omitir esta parte si no la necesitas)
+                    // Procesar la solicitud SOAP
                     System.out.println("Solicitud SOAP recibida:");
                     System.out.println(soapRequest.toString());
 
