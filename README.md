@@ -1,7 +1,7 @@
 # RentaCar App - README
 Este proyecto es una aplicación web desarrollada en React y nodeJs que permite el registro y la visualización de vehículos para una empresa de Renta Car.
 
-## Configuración del Proyecto (Problema 2.1)
+# Configuración del Proyecto (problema 2.1)
  Requisitos Previos
  Asegúrate de tener instalados los siguientes programas antes de comenzar:
 
@@ -9,31 +9,17 @@ Este proyecto es una aplicación web desarrollada en React y nodeJs que permite 
 
 Clona este repositorio en tu máquina local utilizando Git:
 ```
-git clone <URL del repositorio>
-```
-> Instalación de Dependencias
-En la raíz del proyecto, instala las dependencias necesarias:
-
-Configuración del Servidor de Desarrollo
-
-problema2.1
-```
-cd problema2.1/backend
-npm install
+git clone git@github.com:enzomarin/pruebaTecnicaAllware.git
 ```
 
-Para ejecutar el servidor :
 
-```
-npm run dev
-El servidor  estará disponible en http://localhost:1234. 
-```
-### Base de datos
+## Base de datos
 
   este proyecto fue desarrollado con una base de datos Mysql local, por lo que para testear la aplicacion deben configurar una base de datos local.
   
   Para esta prueba tecnica se utilizo [DBngin](https://dbngin.com/) para la creación de base de datos y [MySQLWorkbench](https://www.mysql.com/products/workbench/) para la gestión
 
+  codigo sql utilizado para la creación de la base de dato y tabla "vehicles"
   ```
     DROP DATABASE IF EXISTS rentacardb;
 
@@ -53,7 +39,26 @@ El servidor  estará disponible en http://localhost:1234.
         price INT NOT NULL DEFAULT(0)
     );
   ```
-Es importante que la configuracion de la base de datos creada y la definida para el proyecto sean las mismas para que el servidor se pueda conectar sin problemas. Dicha configuración se encuentra en ```/backend/config/db.js```
+
+## Configuración del Servidor de Desarrollo
+
+Una vez clonado el proyecto dirigete al directorio del proyecto de backend
+```
+cd pruebaTecnicaAllware/problema2.1/backend/
+```
+Una vez en el directorio del proyecto backend instala las dependencias ejecutando:
+```
+  npm install
+```
+### Ejecutar el servidor:
+
+En el mismo directorio ejecuta:
+```
+  npm run dev
+```
+> El servidor  estará disponible en http://localhost:1234. 
+
+NOTA: Es importante que la configuracion de la base de datos creada y la definida para el proyecto sean las mismas para que el servidor se pueda conectar sin problemas. Dicha configuración se encuentra en ```/backend/config/db.js```
         
 la configuración por defecto es:
 ```
@@ -68,7 +73,7 @@ la configuración por defecto es:
     }
 ```
 
-> endpoints disponibles
+### Endpoints disponibles
 ```
     POST
     http://localhost:1234/api/vehicles // agregar un nuevo vehiculo
@@ -81,14 +86,88 @@ la configuración por defecto es:
 
 ```
 
-NOTA: Seguir los mismos pasos para el proyecto (carpeta) de frontend (cd problema2.1/frontend/rentacarFront...)
+## Ejecutar la Aplicación Frontend
+dirigirse al proyecto frontend: 
+```
+  cd pruebaTecnicaAllware/problema2.1/frontend/rentacarFront/
+```
 
-> Uso de la Aplicación
-Registro de Vehículos
-Para registrar un nuevo vehículo, completa el formulario con la información requerida y haz clic en "Agregar Vehículo" para registrar el vehículo.
+instalar dependencias: 
+```
+ npm install
+```
 
-> Visualización de Vehículos
-En la página principal, encontrarás un nabvar que contendra el link para redirigir al formulario y a la lista de vehiculos, la cual tendrá una tabla que muestra los últimos 10 vehículos registrados.
+Levantar aplicacion cliente: 
+```
+  npm run dev
+```
+esto levantara la aplicacion frontend en "http://localhost:PORT/"
+## Uso de la Aplicación
+En la página principal, encontrarás un nabvar que contendra el link para redirigir al formulario (inicio "http://localhost:PORT/") y a la lista de vehiculo (http://localhost:PORT/vehicles), la cual tendrá una tabla que muestra los últimos 10 vehículos registrados.
 
 
-## Configuración del Proyecto (Problema 2.2)
+***
+
+***
+
+
+# Configuración del Proyecto (Problema 2.2)
+
+Este proyecto utiliza Java 1.8, Maven como gestor de dependencias y IntelliJ como entorno de desarrollo integrado.
+
+### Requisitos Previos
+Antes de comenzar, asegúrate de tener instalados los siguientes requisitos:
+
+Java Development Kit (JDK) 1.8: Necesario para compilar y ejecutar el código Java.
+IntelliJ IDEA: Entorno de desarrollo integrado para Java.
+Maven: Herramienta de gestión de proyectos y dependencias para Java.
+
+### Configuración del Proyecto
+#### Clonar el Repositorio:
+
+````
+  git clone git@github.com:enzomarin/pruebaTecnicaAllware.git
+  cd pruebaTecnicaAllware
+  
+````
+#### Importar el Proyecto en IntelliJ:
+
+- Abre IntelliJ IDEA.
+- Selecciona File -> Open y navega hasta el directorio del proyecto clonado.
+
+
+### Ejecutar Servidor desde IntelliJ:
+
+Abre la clase "VehicleWebServicePublisher.java" del servidor.
+Haz clic derecho en la clase y selecciona Run 'VehicleWebServicePublisher.main()'.
+
+
+## Ejecutar la Aplicación Frontend
+Para ejecutar la aplicación frontend que interactúa con el webSerivce SOAP:
+
+#### Dirigirse al proyecto del cliente
+```
+ cd pruebaTecnicaAllware/problema2.2/rentacarFront/
+```
+
+#### Instalar Dependencias:
+
+Una vez en la carpeta del proyecto rentacarFront Ejecuta:
+```
+  npm install
+```
+#### Iniciar la Aplicación:
+
+Una vez instaladas las dependencias, ejecuta:
+```
+  npm run dev
+
+```
+Esto iniciará la aplicación frontend en http://localhost:PORT.
+
+## Uso y Pruebas
+Accede a http://localhost:PORT/vehicles en tu navegador para usar la aplicación frontend.
+
+NOTA : Esta aplicacion frontend se reutilizo del problema 1 para conectar el cliente (reeact) con el webService SOAP y consumir el servicio. Por lo que las funciones de agregar y eliminar no funcionan, solo es posible la visualizacion de los datos proporcionados por el servicio
+
+NOTA2 : el servicio envia datos de pruebas ya que no alcance a conectar con la base de datos.

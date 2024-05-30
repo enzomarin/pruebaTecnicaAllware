@@ -4,11 +4,10 @@ import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.ws.Endpoint;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.util.List;
 
@@ -56,19 +55,22 @@ public class VehicleWebServicePublisher {
                     System.out.println("Solicitud SOAP recibida:");
                     System.out.println(soapRequest.toString());
 
-                    // Obtener los vehículos (aquí asumimos que tu servicio puede devolver una lista de vehículos)
-                    VehicleWebService vehicleService = new VehicleWebServiceImpl();
-                    String vehicles = vehicleService.getVehicles();
 
                     // Convertir los vehículos a XML
-                    String vehiclesXml = vehicles;
+                    VehicleWebService vehicleService = new VehicleWebServiceImpl();
+                    VehicleList vehicles = vehicleService.getVehicles();
+
+                    String vehiclesXml = convertToXml(vehicles);
 
                     // Enviar la respuesta XML
                     exchange.getResponseHeaders().set("Content-Type", "text/xml");
+                    assert vehiclesXml != null;
                     exchange.sendResponseHeaders(200, vehiclesXml.getBytes().length);
                     OutputStream os = exchange.getResponseBody();
                     os.write(vehiclesXml.getBytes());
                     os.close();
+
+
                 }
             }
         });
@@ -80,5 +82,19 @@ public class VehicleWebServicePublisher {
         System.out.println("Vehicle Service is published at http://localhost:1234/VehicleWebServiceImpl");
     }
 
+    private static String convertToXml(VehicleList vehicles) {
+        try {
+            JAXBContext context = JAXBContext.newInstance(VehicleList.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            marshaller.marshal(vehicles, baos);
+            return baos.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

@@ -17,6 +17,7 @@ export interface VehicleData { // interface que define la estructura de los dato
 export const getVehicles = async (): Promise<VehicleData[]> => {
   // Realizamos una solicitud GET para obtener todos los vehículos
   const response = await axios.get<VehicleData[]>(`${API_URL}/vehicles`);
+  console.log(response.data)
   return response.data;
   // NOTA : El manejo de errores lo maneja el controllador
 };

@@ -2,11 +2,7 @@ package org.example;
 import javax.jws.WebMethod;
 import javax.jws.WebResult;
 import javax.jws.WebService;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +12,7 @@ public class VehicleWebServiceImpl implements VehicleWebService{
     @Override
     @WebMethod
     @WebResult(name = "vehicles") // Nombre del elemento contenedor en el XML
-    public String getVehicles() {
-        // Aquí se deberia implementar la lógica para obtener los vehículos de la base de datos.
-        // Esto es solo un ejemplo con datos simulados.
+    public VehicleList getVehicles() {
         List<Vehicle> vehicles = new ArrayList<>();
 
         // Ejemplo de datos simulados
@@ -38,51 +32,87 @@ public class VehicleWebServiceImpl implements VehicleWebService{
         vehicle2.setModel("Mustang");
         vehicle2.setPrice(2000000);
 
+        Vehicle vehicle3 = new Vehicle();
+        vehicle3.setRut("567890123");
+        vehicle3.setName("Michael Johnson");
+        vehicle3.setPatent("XY789ZA");
+        vehicle3.setBrand("Honda");
+        vehicle3.setModel("Civic");
+        vehicle3.setPrice(1200000);
+
+        Vehicle vehicle4 = new Vehicle();
+        vehicle4.setRut("345678901");
+        vehicle4.setName("Emily Davis");
+        vehicle4.setPatent("GH456JK");
+        vehicle4.setBrand("Chevrolet");
+        vehicle4.setModel("Camaro");
+        vehicle4.setPrice(1800000);
+
+        Vehicle vehicle5 = new Vehicle();
+        vehicle5.setRut("901234567");
+        vehicle5.setName("David Wilson");
+        vehicle5.setPatent("LM789OP");
+        vehicle5.setBrand("BMW");
+        vehicle5.setModel("X5");
+        vehicle5.setPrice(2500000);
+
+        Vehicle vehicle6 = new Vehicle();
+        vehicle6.setRut("654321098");
+        vehicle6.setName("Sophia Garcia");
+        vehicle6.setPatent("QR123ST");
+        vehicle6.setBrand("Mercedes-Benz");
+        vehicle6.setModel("C-Class");
+        vehicle6.setPrice(1500000);
+
+        Vehicle vehicle7 = new Vehicle();
+        vehicle7.setRut("234567890");
+        vehicle7.setName("Daniel Brown");
+        vehicle7.setPatent("UV456WX");
+        vehicle7.setBrand("Audi");
+        vehicle7.setModel("A4");
+        vehicle7.setPrice(2200000);
+
+        Vehicle vehicle8 = new Vehicle();
+        vehicle8.setRut("789012345");
+        vehicle8.setName("Olivia Martinez");
+        vehicle8.setPatent("NO789RS");
+        vehicle8.setBrand("Hyundai");
+        vehicle8.setModel("Tucson");
+        vehicle8.setPrice(1300000);
+
+        Vehicle vehicle9 = new Vehicle();
+        vehicle9.setRut("456789012");
+        vehicle9.setName("Emma Taylor");
+        vehicle9.setPatent("CD456EF");
+        vehicle9.setBrand("Kia");
+        vehicle9.setModel("Sportage");
+        vehicle9.setPrice(1400000);
+
+        Vehicle vehicle10 = new Vehicle();
+        vehicle10.setRut("012345678");
+        vehicle10.setName("Noah Moore");
+        vehicle10.setPatent("PQ123RS");
+        vehicle10.setBrand("Volvo");
+        vehicle10.setModel("XC90");
+        vehicle10.setPrice(2800000);
+
+
+
         vehicles.add(vehicle1);
         vehicles.add(vehicle2);
+        vehicles.add(vehicle3);
+        vehicles.add(vehicle4);
+        vehicles.add(vehicle5);
+        vehicles.add(vehicle6);
+        vehicles.add(vehicle7);
+        vehicles.add(vehicle8);
+        vehicles.add(vehicle9);
+        vehicles.add(vehicle10);
 
-        // Convertir los vehículos a XML
-        String vehiclesXml = convertVehiclesToXml(vehicles);
+        VehicleList vehicleList = new VehicleList();
+        vehicleList.setVehicles(vehicles);
 
-        return vehiclesXml;
-    }
-
-    // Método para convertir los vehículos a XML
-    private static String convertVehiclesToXml(List<Vehicle> vehicles) {
-        try {
-            // Crear un contexto JAXB para la clase Vehicle
-            JAXBContext context = JAXBContext.newInstance(Vehicle.class);
-
-            // Crear un marshaller
-            Marshaller marshaller = context.createMarshaller();
-
-            // Configurar el marshaller para formatear el XML
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            // Crear un StringWriter para almacenar el XML serializado
-            StringWriter writer = new StringWriter();
-
-            // Iniciar la escritura del XML con un elemento raíz si es necesario
-            writer.write("<vehicles>");
-
-            // Serializar cada vehículo en la lista
-            for (Vehicle vehicle : vehicles) {
-                marshaller.marshal(vehicle, writer);
-            }
-
-            // Finalizar el elemento raíz si se inició antes
-            writer.write("</vehicles>");
-
-            // Obtener el XML completo como una cadena
-            String vehiclesXml = writer.toString();
-
-            // Retornar el XML generado
-            return vehiclesXml;
-        } catch (JAXBException e) {
-            e.printStackTrace();
-            // Manejar la excepción adecuadamente, por ejemplo, lanzando una excepción personalizada
-            return "<error>Error al serializar los vehículos a XML</error>";
-        }
+        return vehicleList;
     }
 
 }

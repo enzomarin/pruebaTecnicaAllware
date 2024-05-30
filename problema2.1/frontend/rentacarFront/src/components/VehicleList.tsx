@@ -61,9 +61,8 @@ const VehicleList: React.FC = () => {
   // Hook useEffect para obtener los vehículos al montar el componente
   useEffect(() => {
     fetchVehicles();
-  }, [vehicles]); // Al cambiar el estado se vuelve a ejecutar el useEffect realizando el fetch nuevamente
-  // esto Se podría mejorar con un contexto o un estado global para evitar hacer un fetch cada vez que 
-  // cambia el estado que contiene los vehículos
+  }, []); 
+
 
   // Función que realiza el fetching de datos
   const fetchVehicles = async () => {
@@ -82,7 +81,7 @@ const VehicleList: React.FC = () => {
       const result = await deleteVehicle({id : stringId}); // Realizamos el delete 
       if (result.status === 204){ // si entrega status 204 se eliminó correctamente
         alert("Vehiculo eliminado correctamente")
-
+        fetchVehicles()
       }
 
     } catch (error) {

@@ -56,7 +56,7 @@ const VehicleList: React.FC = () => {
   useEffect(() => {
     //fetchVehicles();
     fetchSoapData()
-  }, [vehicles]);
+  }, []);
 
   const fetchVehicles = async () => {
     try {
@@ -70,19 +70,22 @@ const VehicleList: React.FC = () => {
   const fetchSoapData = async () => {
     try {
       const soapResponse = await performSoapRequest();
-      console.log('Response from SOAP service:', soapResponse);
+      const data = soapResponse
+      console.log('Response from SOAP service:', data);
+      setVehicles(data)
     } catch (error) {
       console.error('Error fetching data from SOAP service:', error);
     }
   };
 
+  // Manejar el clic en el botón de eliminar
   const handleDeletClick = async (id : number | undefined) =>{
     const stringId = id?.toString() || ""
     try {
-      const result = await deleteVehicle({id : stringId});
-      if (result.status === 204){
+      const result = await deleteVehicle({id : stringId}); // Realizamos el delete 
+      if (result.status === 204){ // si entrega status 204 se eliminó correctamente
         alert("Vehiculo eliminado correctamente")
-
+        fetchVehicles()
       }
 
     } catch (error) {
@@ -104,8 +107,8 @@ const VehicleList: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        {vehicles.map((vehicle) => (
-          <tr key={vehicle.id}>
+        {vehicles.map((vehicle, index) => (
+          <tr key={index}>
               <td>{vehicle.name}</td>
               <td>{vehicle.rut}</td>
               <td>{vehicle.patent}</td>
@@ -113,7 +116,7 @@ const VehicleList: React.FC = () => {
               <td>{vehicle.model}</td>
               <td>${vehicle.price}</td>
               <td> 
-                <Button onClick={() => handleDeletClick(vehicle.id)}>
+                <Button disabled={true} onClick={() => handleDeletClick(vehicle.id)}>
                   <DeletIcon ></DeletIcon>
                 </Button>
               </td>

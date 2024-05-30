@@ -1,5 +1,8 @@
 // src/services/api.ts
 import axios from 'axios';
+import XMLParser from 'react-xml-parser';
+
+
 
 const API_URL = 'http://localhost:1234/api';
 const SOAP_ENDPOINT = 'http://localhost:1234/VehicleWebServiceImpl?wsdl'; // endpoint SOAP 
@@ -47,16 +50,33 @@ export const performSoapRequest = async () => {
                </soapenv:Envelope>`;
 
   try {
-    const response = await axios.post(SOAP_ENDPOINT, 
-      xmls, 
-      {
+    // Realiza una solicitud POST SOAP al endpoint especificado
+    const response = await axios.post(SOAP_ENDPOINT, xmls, {
       headers: {
         'Content-Type': 'text/xml',
-          SOAPAction: ''
+        SOAPAction: '',
       },
-    })
-    return response;
+    });
+
+    // Parseo la respuesta XML y se obtiene los elementos de vehículo
+    const xmlResponse = response.data; // obtenemos el data de la respuesta
+    const parsedResponse = new XMLParser().parseFromString(xmlResponse); // parseamos a json -> retorna un arreglo de 3 niveles, por eso es necesario mapear los datos
+    const vehiclesXml = parsedResponse.getElementsByTagName('Vehicle'); 
+
+    // Mapeao de los datos XML a objetos VehicleData
+    const vehicles: VehicleData[] = vehiclesXml.map((vehicleXml: any) => ({
+      rut: vehicleXml.getElementsByTagName('rut')[0].value,
+      name: vehicleXml.getElementsByTagName('name')[0].value,
+      patent: vehicleXml.getElementsByTagName('patent')[0].value,
+      brand: vehicleXml.getElementsByTagName('brand')[0].value,
+      model: vehicleXml.getElementsByTagName('model')[0].value,
+      price: parseFloat(vehicleXml.getElementsByTagName('price')[0].value), 
+    }));
+
+    return vehicles;
+
   } catch (error) {
+    
     if (error.response) {
       console.error('Response error:', error.response.status, error.response.data);
     } else if (error.request) {
@@ -64,6 +84,8 @@ export const performSoapRequest = async () => {
     } else {
       console.error('Error making SOAP request:', error.message);
     }
+    
     throw error;
+  
   }
 };

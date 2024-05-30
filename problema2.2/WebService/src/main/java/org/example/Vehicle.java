@@ -1,5 +1,9 @@
 package org.example;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "vehicle")
 public class Vehicle {
     private String rut;
     private String name;
@@ -10,6 +14,7 @@ public class Vehicle {
 
     // Getters y setters
 
+    @XmlElement
     public String getRut() {
         return rut;
     }
@@ -18,6 +23,7 @@ public class Vehicle {
         this.rut = rut;
     }
 
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -26,6 +32,7 @@ public class Vehicle {
         this.name = name;
     }
 
+    @XmlElement
     public String getPatent() {
         return patent;
     }
@@ -34,6 +41,7 @@ public class Vehicle {
         this.patent = patent;
     }
 
+    @XmlElement
     public String getBrand() {
         return brand;
     }
@@ -42,6 +50,7 @@ public class Vehicle {
         this.brand = brand;
     }
 
+    @XmlElement
     public String getModel() {
         return model;
     }
@@ -50,6 +59,7 @@ public class Vehicle {
         this.model = model;
     }
 
+    @XmlElement
     public int getPrice() {
         return price;
     }
